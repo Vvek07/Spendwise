@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: spendwise-backend
+    runtime: docker
+    repo: https://github.com/Vvek07/Spendwise
+    rootDir: backend
+    plan: free
+    envVars:
+      - key: DB_HOST
+        fromDatabase:
+          name: spendwise-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: spendwise-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: spendwise-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: spendwise-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: spendwise-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+
+databases:
+  - name: spendwise-db
+    databaseName: spendwise
+    user: spendwise
+    plan: free # 'starter' if free is unavailable, but 'free' usually works for testing
+    ipAllowList: [] # Allow all internal connections
